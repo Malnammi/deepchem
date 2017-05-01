@@ -356,11 +356,15 @@ class BalancingTransformer(Transformer):
     y = self.dataset.y
     w = self.dataset.w
     # Ensure dataset is binary
-    np.testing.assert_allclose(sorted(np.unique(y)), np.array([0., 1.]))
+    #np.testing.assert_allclose(sorted(np.unique(y)), np.array([0., 1.]))
     weights = []
     for ind, task in enumerate(self.dataset.get_task_names()):
       task_w = w[:, ind]
       task_y = y[:, ind]
+      
+      if not np.allclose(sorted(np.unique(task_y)), np.array([0., 1.])):
+        weights.append((1, 1))
+        continue
       # Remove labels with zero weights
       task_y = task_y[task_w != 0]
       num_positives = np.count_nonzero(task_y)
@@ -379,6 +383,9 @@ class BalancingTransformer(Transformer):
     for ind, task in enumerate(self.dataset.get_task_names()):
       task_y = y[:, ind]
       task_w = w[:, ind]
+      if not np.allclose(sorted(np.unique(task_y)), np.array([0., 1.])):
+        w_balanced[:,ind] = task_w
+        continue
       zero_indices = np.logical_and(task_y == 0, task_w != 0)
       one_indices = np.logical_and(task_y == 1, task_w != 0)
       w_balanced[zero_indices, ind] = self.weights[ind][0]
