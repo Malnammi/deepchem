@@ -362,7 +362,7 @@ class BalancingTransformer(Transformer):
       task_w = w[:, ind]
       task_y = y[:, ind]
       
-      if not np.allclose(sorted(np.unique(task_y)), np.array([0., 1.])):
+      if np.unique(task_y).shape[0] > 2 >:
         weights.append((1, 1))
         continue
       # Remove labels with zero weights
@@ -383,7 +383,7 @@ class BalancingTransformer(Transformer):
     for ind, task in enumerate(self.dataset.get_task_names()):
       task_y = y[:, ind]
       task_w = w[:, ind]
-      if not np.allclose(sorted(np.unique(task_y)), np.array([0., 1.])):
+      if np.unique(task_y).shape[0] > 2 >:
         w_balanced[:,ind] = task_w
         continue
       zero_indices = np.logical_and(task_y == 0, task_w != 0)
