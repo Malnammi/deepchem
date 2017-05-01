@@ -508,7 +508,7 @@ class TensorflowGraphModel(Model):
       # TODO(rbharath): Is setting train=False right here?
       saver = tf.train.Saver()
       saver.restore(self._get_shared_session(train=False), last_checkpoint)
-      self._restored_model = True
+      #self._restored_model = True
 
   def predict(self, dataset, transformers=[]):
     """
