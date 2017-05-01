@@ -164,9 +164,8 @@ class TensorflowLogisticRegression(TensorflowGraphModel):
     orig_dict["mol_features"] = X_b
     for task in range(self.n_tasks):
       if y_b is not None:
-        y_2column = to_one_hot(y_b[:, task])
         # fix the size to be [?,1]
-        orig_dict["labels_%d" % task] = y_2column[:, 1:2]
+        orig_dict["labels_%d" % task] = y_b[:, task]
       else:
         # Dummy placeholders
         orig_dict["labels_%d" % task] = np.zeros((self.batch_size, 1))
