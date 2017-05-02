@@ -165,7 +165,7 @@ class TensorflowLogisticRegression(TensorflowGraphModel):
     for task in range(self.n_tasks):
       if y_b is not None:
         # fix the size to be [?,1]
-        orig_dict["labels_%d" % task] = y_b[:, task]
+        orig_dict["labels_%d" % task] = y_b[:, task:task+1]
       else:
         # Dummy placeholders
         orig_dict["labels_%d" % task] = np.zeros((self.batch_size, 1))
