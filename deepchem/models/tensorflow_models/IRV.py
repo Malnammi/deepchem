@@ -124,10 +124,10 @@ class TensorflowMultiTaskIRVClassifier(TensorflowLogisticRegression):
 
       for count in range(self.n_tasks):
         similarity = features[:, 2 * K * count:(2 * K * count + K)]
-        ys = tf.to_int32(features[:, (2 * K * count + K):2 * K * (count + 1)])
+        ys = features[:, (2 * K * count + K):2 * K * (count + 1)]
         R = b + W[0] * similarity + W[1] * tf.constant(
             np.arange(K) + 1, dtype=tf.float32)
         R = tf.sigmoid(R)
-        z = tf.reduce_sum(R * tf.gather(V, ys), axis=1) + b2
+        z = tf.reduce_sum(R * ys, axis=1) + b2
         output.append(tf.reshape(z, shape=[-1, 1]))
     return (output, labels, weights)
