@@ -485,9 +485,9 @@ class TensorflowGraphModel(Model):
     # allow_soft_placement=True allows ops without a GPU implementation
     # to run on the CPU instead.
     if train:
-      if not self.train_graph.session:
-        config = tf.ConfigProto(allow_soft_placement=True)
-        self.train_graph.session = tf.Session(config=config)
+      #if not self.train_graph.session:
+      config = tf.ConfigProto(allow_soft_placement=True)
+      self.train_graph.session = tf.Session(config=config)
       return self.train_graph.session
     else:
       if not self.eval_graph.session:
