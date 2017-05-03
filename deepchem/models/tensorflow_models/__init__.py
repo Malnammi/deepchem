@@ -332,10 +332,14 @@ class TensorflowGraphModel(Model):
       train_op = self.get_training_op(self.train_graph.graph,
                                       self.train_graph.loss)
       with self._get_shared_session(train=True) as sess:
-        if self.first_train:
-          sess.run(tf.global_variables_initializer())
-          self.first_train = False
+        sess.run(tf.global_variables_initializer())
+        
         saver = tf.train.Saver(max_to_keep=max_checkpoints_to_keep)
+        
+        if self.first_train:
+            last_checkpoint = self._find_last_checkpoint()
+            saver.restore(sess, last_checkpoint)
+            self.first_train = False
         # Save an initial checkpoint.
         saver.save(sess, self._save_path, global_step=0)
 
