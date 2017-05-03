@@ -209,6 +209,8 @@ class TensorflowGraphModel(Model):
 
     self.train_graph = self.construct_graph(training=True, seed=self.seed)
     self.eval_graph = self.construct_graph(training=False, seed=self.seed)
+    
+    self.first_train = True
 
   def save(self):
     """
@@ -330,7 +332,9 @@ class TensorflowGraphModel(Model):
       train_op = self.get_training_op(self.train_graph.graph,
                                       self.train_graph.loss)
       with self._get_shared_session(train=True) as sess:
-        sess.run(tf.global_variables_initializer())
+        if self.first_train:
+          sess.run(tf.global_variables_initializer())
+          self.first_train = False
         saver = tf.train.Saver(max_to_keep=max_checkpoints_to_keep)
         # Save an initial checkpoint.
         saver.save(sess, self._save_path, global_step=0)
