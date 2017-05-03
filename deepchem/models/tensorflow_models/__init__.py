@@ -336,7 +336,7 @@ class TensorflowGraphModel(Model):
         
         saver = tf.train.Saver(max_to_keep=max_checkpoints_to_keep)
         
-        if self.first_train:
+        if not self.first_train:
             last_checkpoint = self._find_last_checkpoint()
             saver.restore(sess, last_checkpoint)
             self.first_train = False
