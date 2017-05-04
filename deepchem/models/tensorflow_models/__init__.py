@@ -328,6 +328,7 @@ class TensorflowGraphModel(Model):
     time1 = time.time()
     ############################################################## TIMING
     log("Training for %d epochs" % nb_epoch, self.verbose)
+    self.train_graph = self.construct_graph(training=True, seed=self.seed)
     with self.train_graph.graph.as_default():
       train_op = self.get_training_op(self.train_graph.graph,
                                       self.train_graph.loss)
