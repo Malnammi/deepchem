@@ -339,6 +339,7 @@ class TensorflowGraphModel(Model):
         if not self.first_train:
             last_checkpoint = self._find_last_checkpoint()
             saver.restore(sess, last_checkpoint)
+        else:
             self.first_train = False
         # Save an initial checkpoint.
         saver.save(sess, self._save_path, global_step=0)
