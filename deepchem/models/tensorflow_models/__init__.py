@@ -329,7 +329,8 @@ class TensorflowGraphModel(Model):
     ############################################################## TIMING
     log("Training for %d epochs" % nb_epoch, self.verbose)
     with self.train_graph.graph.as_default():
-      train_op = self.get_training_op(self.train_graph.graph,
+      if self.first_train:
+        train_op = self.get_training_op(self.train_graph.graph,
                                       self.train_graph.loss)
       with self._get_shared_session(train=True) as sess:
         sess.run(tf.global_variables_initializer())
