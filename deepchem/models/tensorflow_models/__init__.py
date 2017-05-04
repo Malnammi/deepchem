@@ -329,18 +329,16 @@ class TensorflowGraphModel(Model):
     ############################################################## TIMING
     log("Training for %d epochs" % nb_epoch, self.verbose)
     with self.train_graph.graph.as_default():
-      if self.first_train:
-        train_op = self.get_training_op(self.train_graph.graph,
+      train_op = self.get_training_op(self.train_graph.graph,
                                       self.train_graph.loss)
       with self._get_shared_session(train=True) as sess:
         sess.run(tf.global_variables_initializer())
-        
         saver = tf.train.Saver(max_to_keep=max_checkpoints_to_keep)
-        
         if not self.first_train:
             last_checkpoint = self._find_last_checkpoint()
+            saver = tf.train.import_meta_graph(last_checkpoint+'.meta')
             saver.restore(sess, last_checkpoint)
-        else:
+        else:   
             self.first_train = False
         # Save an initial checkpoint.
         saver.save(sess, self._save_path, global_step=0)
