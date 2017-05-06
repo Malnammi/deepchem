@@ -138,7 +138,7 @@ class TensorflowMultiTaskIRVClassifier(TensorflowLogisticRegression):
                 tf.nn.sigmoid_cross_entropy_with_logits(logits=logits, labels=labels),
                 weights)
     else:
-        return tf.multiply(0.5 * tf.square(output - labels), weights)
+        return tf.multiply(0.5 * tf.square(logits - labels), weights)
 
   def add_output_ops(self, graph, output):
     # adding output nodes of sigmoid function
