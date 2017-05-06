@@ -132,11 +132,23 @@ class TensorflowMultiTaskIRVClassifier(TensorflowLogisticRegression):
         output.append(tf.reshape(z, shape=[-1, 1]))
     return (output, labels, weights)
   
-    def cost(self, logits, labels, weights):
-        if np.unique(labels).shape[0] == 2:
-            return tf.multiply(
+  def cost(self, logits, labels, weights):
+    if np.unique(labels).shape[0] == 2:
+        return tf.multiply(
                 tf.nn.sigmoid_cross_entropy_with_logits(logits=logits, labels=labels),
                 weights)
-        else:
-            return tf.multiply(0.5 * tf.square(output - labels), weights)
+    else:
+        return tf.multiply(0.5 * tf.square(output - labels), weights)
 
+  def add_output_ops(self, graph, output):
+    # adding output nodes of sigmoid function
+    with graph.as_default():
+      sigmoid = []
+      with tf.name_scope('inference'):
+        for i, logits in enumerate(output):
+          if i in [2, 4]:
+              sigmoid.append(logits)
+          else:
+              sigmoid.append(tf.nn.sigmoid(logits, name='sigmoid_%d' % i))
+      output = sigmoid
+    return output
