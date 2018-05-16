@@ -1,4 +1,25 @@
-﻿# DeepChem
+Note: This is a modified version of [deepchem](https://github.com/deepchem/deepchem) to allow for more training tensorflow-based models after training for the first time. 
+
+To install with [pria_lifechem](https://github.com/gitter-lab/pria_lifechem):
+
+```
+git clone https://github.com/Malnammi/deepchem.git
+
+conda install -y -c rdkit rdkit
+conda install -y joblib
+conda install -y -c anaconda networkx=1.11
+conda install -y -c conda-forge six=1.10.0
+conda install -y -c omnia mdtraj
+conda install -y -c omnia pdbfixer=1.4
+conda install --yes tensorflow-gpu
+conda install -y -c conda-forge nose=1.3.7
+
+cd deepchem
+python setup.py install > /dev/null
+cd ..
+```
+
+# DeepChem
 [![Build Status](https://travis-ci.org/deepchem/deepchem.svg?branch=master)](https://travis-ci.org/deepchem/deepchem)
 [![Coverage Status](https://coveralls.io/repos/github/deepchem/deepchem/badge.svg?branch=master)](https://coveralls.io/github/deepchem/deepchem?branch=master)
 
