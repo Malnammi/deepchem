@@ -15,7 +15,7 @@ conda install --yes tensorflow-gpu
 conda install -y -c conda-forge nose=1.3.7
 
 cd deepchem
-python setup.py install > /dev/null
+python setup.py install
 cd ..
 ```
 
