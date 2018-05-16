@@ -20,7 +20,6 @@ cd ..
 ```
 
 # DeepChem
-[![Build Status](https://travis-ci.org/Malnammi/deepchem.svg?branch=master)](https://travis-ci.org/Malnammi/deepchem)
 
 DeepChem aims to provide a high quality open-source toolchain that
 democratizes the use of deep-learning in drug discovery, materials science, and quantum
