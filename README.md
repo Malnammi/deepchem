@@ -11,7 +11,7 @@ conda install -y -c anaconda networkx=1.11
 conda install -y -c conda-forge six=1.10.0
 conda install -y -c omnia mdtraj
 conda install -y -c omnia pdbfixer=1.4
-conda install --yes tensorflow-gpu
+conda install --yes tensorflow
 conda install -y -c conda-forge nose=1.3.7
 
 cd deepchem
