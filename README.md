@@ -1,4 +1,4 @@
-Note: This is a modified version of [deepchem](https://github.com/deepchem/deepchem) to allow for more training tensorflow-based models after training for the first time. 
+Note: This is a modified version of [deepchem](https://github.com/deepchem/deepchem) to allow `fit` to be called for a second time the first call. This was done for early stopping after a predefined number of epochs. 
 
 To install with [pria_lifechem](https://github.com/gitter-lab/pria_lifechem):
 
